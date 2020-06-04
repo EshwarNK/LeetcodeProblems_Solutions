@@ -1,0 +1,33 @@
+// Two pointer approach
+/**
+Given a string, find the length of the longest substring without repeating characters.
+Input: "abcabcbb"
+Output: 3 
+Explanation: The answer is "abc", with the length of 3. 
+*/
+
+class Solution {
+    public int lengthOfLongestSubstring(String s) {
+        if(s.length()==1) return 1;
+        if(s.length()==0) return 0;
+        int first = 0;
+        int second = 0;
+        int count = 1;
+        char[] arr = s.toCharArray();
+        HashSet<Character> hs = new HashSet<>();
+        while(second<arr.length){
+            // hs.add(arr[second]);
+            // second++;
+            if(!hs.contains(arr[second])){
+                hs.add(arr[second]);
+                second++;
+                count = Math.max(hs.size(), count);
+            }else{
+                // For every repetition, remove one element in the given string, like a, b, c
+                hs.remove(arr[first]);
+                first++;
+            }
+        }
+        return count;
+    }
+}
